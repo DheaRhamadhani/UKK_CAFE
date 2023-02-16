@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
+    status: DataTypes.BOOLEAN,
     nomor_meja: DataTypes.STRING
   }, {
     sequelize,

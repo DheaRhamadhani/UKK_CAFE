@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id_transaksi",
         as: "transaksi"
       })
+
+      this.belongsTo(models.transaksi,{
+        foreignKey: "id_menu",
+        as: "menu"
+      })
     }
   }
   detail_transaksi.init({

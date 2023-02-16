@@ -13,9 +13,12 @@ app.get("/", [authorization.authorization], transaksiController.getDataTransaksi
 app.post("/", [authorization.authorization], transaksiController.addData)
 
 // end-point edit data siswa
-// app.put("/:id_transaksi", [authorization.authorization], transaksiController.editDataTransaksi)
+app.put("/:id_transaksi", [authorization.authorization], transaksiController.updateData)
 
 // end-point delete data siswa
-//app.delete("/:id_transaksi", [authorization.authorization], transaksiController.deleteDataTransaksi)
+app.delete("/:id_transaksi", [authorization.authorization], transaksiController.deleteData)
+
+// end-point update status
+app.get("/:id_transaksi", [authorization.authorization], transaksiController.ubahstatus)
 
 module.exports = app
