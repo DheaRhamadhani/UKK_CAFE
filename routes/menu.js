@@ -26,4 +26,7 @@ app.put("/:id_menu", [
 app.delete("/:id_menu", [
     authorization.authorization], menuController.deleteDataMenu)
 
+    app.post("/find", [
+        authorization.authorization, menuController.findMenu])   
+
 module.exports = app

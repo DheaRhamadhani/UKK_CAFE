@@ -27,4 +27,5 @@ app.delete("/:id_user", [authorization.authorization], userController.deleteData
 
 app.post("/auth", userController.authentication)
 
+app.post("/find", [authorization.authorization, userController.findUser])   
 module.exports = app

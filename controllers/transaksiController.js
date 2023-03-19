@@ -1,5 +1,6 @@
 const { request, response } = require("express");
 const req = require("express/lib/request");
+const { Op } = require("sequelize");
 
 let transaksiModel = require("../models/index").transaksi;
 let menuModel = require("../models/index").menu;
@@ -28,8 +29,8 @@ exports.ubahstatus = async (request, response) => {
 
 exports.filterTransaksi = async (request, response) => {
   // filter tanggal awal - tanggal akhir
-  let start = req.body.start;
-  let end = req.body.end;
+  let start = request.body.start;
+  let end = request.body.end;
 
   let data = await transaksiModel.findAll({
     include: [
@@ -44,6 +45,33 @@ exports.filterTransaksi = async (request, response) => {
     where: {
       tgl_transaksi: {
         [Op.between]: [start, end],
+      },
+    },
+  });
+  return response.json(data);
+};
+
+exports.searchTransaksi = async (request, response) => {
+  let keyword = request.body.keyword;
+  let sequelize = require(`sequelize`);
+  let Op = sequelize.Op;
+
+  let data = await transaksiModel.findAll({
+    include: [
+      "user",
+      "meja",
+      {
+        model: detailTransaksiModel,
+        as: "detail_transaksi",
+        include: ["menu"],
+      },
+    ],
+    where: {
+      [Op.or]: {
+        // tgl_transaksi: { [Op.like] : `%${keyword}%` }
+        id_user: { [Op.like]: `%${keyword}%` },
+        nama_pelanggan: { [Op.like]: `%${keyword}%` },
+        status: { [Op.like]: `%${keyword}%` },
       },
     },
   });

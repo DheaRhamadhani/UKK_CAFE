@@ -69,3 +69,20 @@ exports.deleteDataMeja = (request, response) => {
         })
     })
 }
+
+exports.findMeja = async (request, response) => {
+    let keyword = request.body.keyword;
+    let sequelize = require(`sequelize`);
+    let Op = sequelize.Op;
+  
+    let data = await modelMeja.findAll({
+      where: {
+        [Op.or]: {
+          id_meja: { [Op.like]: `%${keyword}%` },
+          nomor_meja: { [Op.like]: `%${keyword}%` },
+          status: { [Op.like]: `%${keyword}%` },
+        },
+      },
+    });
+    return response.json(data);
+  }

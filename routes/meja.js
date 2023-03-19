@@ -18,4 +18,6 @@ app.put("/:id_meja", [authorization.authorization], mejaController.editDataMeja)
 // end-point delete data siswa
 app.delete("/:id_meja", [authorization.authorization], mejaController.deleteDataMeja)
 
+app.post("/find", [ authorization.authorization, mejaController.findMeja])  
+
 module.exports = app
